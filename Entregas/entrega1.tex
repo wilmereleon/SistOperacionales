@@ -73,7 +73,7 @@ Como señalan autores como \citeA{stallings2005}, la virtualización es un pilar
 
 \section{Marco teórico}
 \begin{itemize}
-    \item La virtualización permite optimizar recursos y aislar entornos de ejecución, lo que facilita la administración de sistemas \cite{wolf2010}.
+    \item La virtualización permite optimizar recursos y aislar entornos de ejecución, lo que facilita la administración de sistemas \cite{wolf2010}. Para este caso en particular, el montaje de tres sistemas operativos desde distintas máquinas, se efectúa para hacer pruebas de conectividad.
     \item Existen diferencias clave entre NAT y adaptador puente en VirtualBox, que determinan el alcance de la conectividad de las máquinas virtuales \cite{oracle2024}.
     \item El direccionamiento IP es esencial para garantizar la comunicación entre dispositivos en una red local \cite{canonical2024}.
 \end{itemize}
@@ -107,19 +107,33 @@ UbunSO3 & Ubuntu Server 22.04 LTS & Ubuntu Server 22.04 LTS & 2048 & 192.168.2.7
 \end{table}
 
 \subsection{Evidencia de configuración de red}
+Para verificar la configuración de red de cada máquina virtual, se utilizó el comando \texttt{ip a} (abreviatura de \texttt{ip address}) en cada una de las tres máquinas. Este comando muestra información detallada sobre las interfaces de red, incluyendo las direcciones IP asignadas, máscaras de subred y estado de las interfaces.
+
+\textbf{Pasos realizados:}
+\begin{enumerate}
+    \item Acceder a cada máquina virtual a través de la consola de VirtualBox.
+    \item Ejecutar el comando: \texttt{ip a} o \texttt{ip address show}
+    \item Verificar que la interfaz de red (típicamente \texttt{enp0s3}) tenga asignada la dirección IP configurada.
+    \item Confirmar que el estado de la interfaz sea \texttt{UP} y que esté en modo \texttt{BROADCAST,MULTICAST}.
+\end{enumerate}
+
+A continuación se muestran las capturas de pantalla con la salida del comando en cada máquina virtual:
+
 \begin{figure}[H]
     \centering
-    \begin{subfigure}[b]{0.45\textwidth}
+    \begin{subfigure}[b]{0.55\textwidth}
         \includegraphics[width=\textwidth]{capturas/ubunso1-ip-a.png}
         \caption{UbunSO1 – IP 192.168.2.9}
     \end{subfigure}
     \hfill
-    \begin{subfigure}[b]{0.45\textwidth}
+    \begin{subfigure}[b]{0.55\textwidth}
         \includegraphics[width=\textwidth]{capturas/ubunso2-ip-a.png}
         \caption{UbunSO2 – IP 192.168.2.8}
     \end{subfigure}
-    \par\medskip
-    \begin{subfigure}[b]{0.45\textwidth}
+    
+    \vspace{0.3cm}
+    
+    \begin{subfigure}[b]{0.55\textwidth}
         \includegraphics[width=\textwidth]{capturas/ubunso3-ip-a.png}
         \caption{UbunSO3 – IP 192.168.2.7}
     \end{subfigure}
@@ -127,26 +141,55 @@ UbunSO3 & Ubuntu Server 22.04 LTS & Ubuntu Server 22.04 LTS & 2048 & 192.168.2.7
 \end{figure}
 
 \subsection{Evidencia de conectividad entre máquinas}
+Una vez verificada la configuración de red, se procedió a comprobar la conectividad entre las máquinas virtuales utilizando el comando \texttt{ping}. Este comando envía paquetes ICMP (Internet Control Message Protocol) para verificar si existe comunicación entre dos dispositivos en la red.
+
+\textbf{Procedimiento para las pruebas de conectividad:}
+\begin{enumerate}
+    \item \textbf{Desde UbunSO1 hacia UbunSO2:}
+    \begin{itemize}
+        \item Acceder a la máquina UbunSO1
+        \item Ejecutar: \texttt{ping 192.168.2.8 -c 4}
+        \item El parámetro \texttt{-c 4} indica que se enviarán 4 paquetes
+        \item Verificar que se reciban respuestas (reply) y no haya pérdida de paquetes
+    \end{itemize}
+    
+    \item \textbf{Desde UbunSO2 hacia UbunSO3:}
+    \begin{itemize}
+        \item Acceder a la máquina UbunSO2
+        \item Ejecutar: \texttt{ping 192.168.2.7 -c 4}
+        \item Confirmar respuestas exitosas y tiempo de respuesta (TTL)
+    \end{itemize}
+    
+    \item \textbf{Desde UbunSO3 hacia UbunSO1:}
+    \begin{itemize}
+        \item Acceder a la máquina UbunSO3
+        \item Ejecutar: \texttt{ping 192.168.2.9 -c 4}
+        \item Validar conectividad bidireccional entre todas las máquinas
+    \end{itemize}
+\end{enumerate}
+
+Las siguientes capturas muestran los resultados de las pruebas de conectividad, donde se observa el tiempo de respuesta (time), el TTL (Time To Live) y la estadística final con 0\% de pérdida de paquetes:
+
 \begin{figure}[H]
     \centering
-    \begin{subfigure}[b]{0.45\textwidth}
+    \begin{subfigure}[b]{0.55\textwidth}
         \includegraphics[width=\textwidth]{capturas/ping-ubunso1-ubunso2.png}
         \caption{UbunSO1 → UbunSO2}
     \end{subfigure}
     \hfill
-    \begin{subfigure}[b]{0.45\textwidth}
+    \begin{subfigure}[b]{0.55\textwidth}
         \includegraphics[width=\textwidth]{capturas/ping-ubunso2-ubunso3.png}
         \caption{UbunSO2 → UbunSO3}
     \end{subfigure}
-    \par\medskip
-    \begin{subfigure}[b]{0.45\textwidth}
+    
+    \vspace{0.3cm}
+    
+    \begin{subfigure}[b]{0.55\textwidth}
         \includegraphics[width=\textwidth]{capturas/ping-ubunso3-ubunso1.png}
         \caption{UbunSO3 → UbunSO1}
     \end{subfigure}
     \caption{Pruebas de conectividad entre las máquinas virtuales mediante \texttt{ping}.}
 \end{figure}
-
-\FloatBarrier
 
 \subsection{Diagramas de red}
 \begin{figure}[H]
@@ -192,6 +235,35 @@ UbunSO3 & Ubuntu Server 22.04 LTS & Ubuntu Server 22.04 LTS & 2048 & 192.168.2.7
 \end{tikzpicture}
 \caption{Esquema de red en modo NAT (referencia).}
 \end{figure}
+
+\FloatBarrier
+
+\section{Implementación con Docker}
+Generamos además una implementación aprovechando la potencia de Docker para generar virtualización a partir de sus contenedores y teniendo en cuenta la importancia que tiene esta herramienta en el mundo profesional. Se generan contenedores y red via bash y podemos verlos ejecutando Ubuntu 22.04:
+
+\begin{figure}
+    \centering
+    \includegraphics[width=1\linewidth]{capturas//docker/containers.png}
+    \includegraphics[width=1\linewidth]{capturas/Docker/containers.png}
+    \caption{Captura del software OrbStack}
+    \label{fig:placeholder}
+\end{figure}
+
+\FloatBarrier
+
+\FloatBarrier
+
+\section{Implementación con Docker}
+Generamos además una implementación aprovechando la potencia de Docker para generar virtualización a partir de sus contenedores y teniendo en cuenta la importancia que tiene esta herramienta en el mundo profesional. Se generan contenedores y red via bash y podemos verlos ejecutando Ubuntu 22.04:
+
+\begin{figure}
+    \centering
+    \includegraphics[width=1\linewidth]{capturas/Docker/containers.png}
+    \caption{Captura del software OrbStack}
+    \label{fig:placeholder}
+\end{figure}
+
+\FloatBarrier
 
 \FloatBarrier
 
