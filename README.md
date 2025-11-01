@@ -18,4 +18,3 @@ apt update && apt install -y iputils-ping
 
 ping <output_hostname> -c 10
 
-
