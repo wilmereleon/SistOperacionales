@@ -107,7 +107,7 @@ UbunSO3 & Ubuntu Server 22.04 LTS & Ubuntu Server 22.04 LTS & 2048 & 192.168.2.7
 \end{table}
 
 \subsection{Evidencia de configuración de red}
-Para verificar la configuración de red de cada máquina virtual, se utilizó el comando \texttt{ip a} (abreviatura de \texttt{ip address}) en cada una de las tres máquinas. Este comando muestra información detallada sobre las interfaces de red, incluyendo las direcciones IP asignadas, máscaras de subred y estado de las interfaces.
+Para verificar la configuración de red de cada máquina virtual, se utilizó el comando \texttt{ip a} (abreviatura de \texttt{ip address}) en cada una de las tres máquinas. Este comando muestra información detallada sobre las interfaces de red, incluyendo las direcciones IP asignadas, máscaras de subred y estado de las interfaces (es habitual que hayan fallas en la ejecución de los comandos, debido a falta de paquetes o a problemas con las instalación general del SO).
 
 \textbf{Pasos realizados:}
 \begin{enumerate}
@@ -241,29 +241,12 @@ Las siguientes capturas muestran los resultados de las pruebas de conectividad, 
 \section{Implementación con Docker}
 Generamos además una implementación aprovechando la potencia de Docker para generar virtualización a partir de sus contenedores y teniendo en cuenta la importancia que tiene esta herramienta en el mundo profesional. Se generan contenedores y red via bash y podemos verlos ejecutando Ubuntu 22.04:
 
-\begin{figure}
-    \centering
-    \includegraphics[width=1\linewidth]{capturas//docker/containers.png}
-    \includegraphics[width=1\linewidth]{capturas/Docker/containers.png}
-    \caption{Captura del software OrbStack}
-    \label{fig:placeholder}
-\end{figure}
-
-\FloatBarrier
-
-\FloatBarrier
-
-\section{Implementación con Docker}
-Generamos además una implementación aprovechando la potencia de Docker para generar virtualización a partir de sus contenedores y teniendo en cuenta la importancia que tiene esta herramienta en el mundo profesional. Se generan contenedores y red via bash y podemos verlos ejecutando Ubuntu 22.04:
-
-\begin{figure}
+\begin{figure}[H]
     \centering
     \includegraphics[width=1\linewidth]{capturas/Docker/containers.png}
     \caption{Captura del software OrbStack}
     \label{fig:placeholder}
 \end{figure}
-
-\FloatBarrier
 
 \FloatBarrier
 

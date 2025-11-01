@@ -9,7 +9,6 @@
 \contentsline {subsection}{\numberline {3.5}Evidencia de conectividad entre máquinas}{6}{subsection.3.5}%
 \contentsline {subsection}{\numberline {3.6}Diagramas de red}{8}{subsection.3.6}%
 \contentsline {section}{\numberline {4}Implementación con Docker}{8}{section.4}%
-\contentsline {section}{\numberline {5}Implementación con Docker}{9}{section.5}%
-\contentsline {section}{\numberline {6}Conclusiones}{10}{section.6}%
-\contentsline {section}{\numberline {7}Referencias}{10}{section.7}%
-\contentsline {section}{Referencias}{10}{section*.10}%
+\contentsline {section}{\numberline {5}Conclusiones}{9}{section.5}%
+\contentsline {section}{\numberline {6}Referencias}{9}{section.6}%
+\contentsline {section}{Referencias}{9}{section*.9}%
