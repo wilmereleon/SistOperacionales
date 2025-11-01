@@ -1,0 +1,213 @@
+\documentclass[12pt,a4paper]{article}
+
+% Paquetes básicos
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish]{babel}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{geometry}
+\usepackage{setspace}
+\usepackage{csquotes}
+\usepackage{apacite}    % Normas APA
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+\usepackage{chngcntr}   % Numeración de figuras/tablas por sección
+\usepackage{placeins}   % Control de flotantes con \FloatBarrier
+\usepackage{tabularx}   % Tablas con ajuste automático
+\usepackage{booktabs}   % Tablas más limpias
+\usepackage{float}      % Para usar [H] y fijar posición de figuras
+
+% Configuración de márgenes
+\geometry{top=2.5cm, bottom=2.5cm, left=3cm, right=3cm}
+
+% Numeración de figuras y tablas por sección
+\counterwithin{figure}{section}
+\counterwithin{table}{section}
+
+% Estilo APA para captions
+\captionsetup[figure]{labelfont=bf, textfont=it, name=Figura, labelsep=period}
+\captionsetup[table]{labelfont=bf, textfont=it, name=Tabla, labelsep=period}
+
+% Datos del documento
+\title{\textbf{Práctica de Laboratorio 1: Instalación y Configuración de Máquinas Virtuales}}
+\author{Wílmer E. León \\ Código: 1520010896 \and Jesús Orlando Orjuela \\ Código: 100384722 \and Hugo Alejandro Mejía \\ Código: 100312289 \and Fabián Andrés Cabana \\ Código: 1620010455}
+\date{Fecha de entrega: 1 de noviembre de 2025}
+
+\begin{document}
+
+% Portada
+\begin{titlepage}
+    \centering
+    {\Huge \textbf{Práctica de Laboratorio 1}}\\[0.5cm]
+    {\LARGE Instalación y Configuración de Máquinas Virtuales}\\[5cm]
+
+    \textbf{Estudiantes:}\\
+    Wílmer E. León \\ Código: 1520010896 \\[0.5cm]
+    Jesús Orlando Orjuela \\ Código: 100384722 \\[0.5cm]
+    Hugo Alejandro Mejía \\ Código: 100312289 \\[0.5cm]
+    Fabián Andrés Cabana \\ Código: 1620010455 \\[2cm]
+
+    \textbf{Docente:}\\
+    José León León \\[4cm]
+
+    {\small Institución Universitaria Politécnico Grancolombiano \\ 
+    Facultad de Ingeniería, Diseño e Innovación \\ 
+    Sistemas Operacionales - Grupo B04 | Grupo de trabajo 11} \\ 
+    Bogotá D.C., Colombia \\ 
+    1 de noviembre de 2025 \\[1cm]
+\end{titlepage}
+
+% Índice automático
+\tableofcontents
+\newpage
+
+\onehalfspacing
+
+\section{Introducción}
+En esta primera entrega se documenta la instalación de tres máquinas virtuales utilizando \textbf{Oracle VirtualBox}, su configuración de red en modo \textbf{adaptador puente} y la verificación de conectividad entre ellas. El objetivo es sentar las bases para la posterior configuración de \textbf{Nginx} como balanceador de carga.  
+
+Como señalan autores como \citeA{stallings2005}, la virtualización es un pilar fundamental en la administración moderna de sistemas. Asimismo, \citeA{silberschatz2008} destacan que la concurrencia y la gestión de procesos son elementos centrales en el diseño de sistemas operativos.
+
+\section{Marco teórico}
+\begin{itemize}
+    \item La virtualización permite optimizar recursos y aislar entornos de ejecución, lo que facilita la administración de sistemas \cite{wolf2010}.
+    \item Existen diferencias clave entre NAT y adaptador puente en VirtualBox, que determinan el alcance de la conectividad de las máquinas virtuales \cite{oracle2024}.
+    \item El direccionamiento IP es esencial para garantizar la comunicación entre dispositivos en una red local \cite{canonical2024}.
+\end{itemize}
+
+\section{Contenido}
+
+\subsection{Preparación de los recursos}
+Se utilizaron imágenes ISO de \textbf{Ubuntu Server}, en particular la versión \textbf{22.04.5 LTS} para la máquina \textbf{UbunSO2}. El hipervisor empleado fue \textbf{Oracle VirtualBox} \cite{oracle2024}.
+
+\subsection{Creación de las máquinas virtuales}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{capturas/vms-tres-maquinas.png}
+    \caption{Evidencia de las tres máquinas virtuales creadas en VirtualBox.}
+    \label{fig:vms}
+\end{figure}
+
+\subsection{Configuración de red}
+\begin{table}[H]
+\centering
+\caption{Resumen de configuración de las máquinas virtuales.}
+\begin{tabularx}{\textwidth}{c c X c c}
+\toprule
+\textbf{Máquina} & \textbf{Nombre} & \textbf{S. O.} & \textbf{RAM (MB)} & \textbf{Dirección IP} \\
+\midrule
+UbunSO1 & Ubuntu Server 22.04 LTS & Ubuntu Server 22.04 LTS & 2048 & 192.168.2.9 \\
+UbunSO2 & Ubuntu Server 22.04.5 LTS & Ubuntu Server 22.04.5 LTS & 2048 & 192.168.2.8 \\
+UbunSO3 & Ubuntu Server 22.04 LTS & Ubuntu Server 22.04 LTS & 2048 & 192.168.2.7 \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Evidencia de configuración de red}
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{capturas/ubunso1-ip-a.png}
+        \caption{UbunSO1 – IP 192.168.2.9}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{capturas/ubunso2-ip-a.png}
+        \caption{UbunSO2 – IP 192.168.2.8}
+    \end{subfigure}
+    \par\medskip
+    \begin{subfigure}[b]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{capturas/ubunso3-ip-a.png}
+        \caption{UbunSO3 – IP 192.168.2.7}
+    \end{subfigure}
+    \caption{Salida del comando \texttt{ip a} en las tres máquinas virtuales.}
+\end{figure}
+
+\subsection{Evidencia de conectividad entre máquinas}
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{capturas/ping-ubunso1-ubunso2.png}
+        \caption{UbunSO1 → UbunSO2}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{capturas/ping-ubunso2-ubunso3.png}
+        \caption{UbunSO2 → UbunSO3}
+    \end{subfigure}
+    \par\medskip
+    \begin{subfigure}[b]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{capturas/ping-ubunso3-ubunso1.png}
+        \caption{UbunSO3 → UbunSO1}
+    \end{subfigure}
+    \caption{Pruebas de conectividad entre las máquinas virtuales mediante \texttt{ping}.}
+\end{figure}
+
+\FloatBarrier
+
+\subsection{Diagramas de red}
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[
+        vm/.style={rectangle, draw=blue!60, fill=blue!20, thick, minimum width=3cm, minimum height=1cm, align=center},
+    router/.style={circle, draw=red!60, fill=red!20, thick, minimum size=1.2cm, align=center}
+]
+\node[router] (router) {Router \\ 192.168.2.1};
+\node[vm, below left=2cm and 2cm of router] (vm1) {UbunSO1 \\ 192.168.2.9};
+\node[vm, below=2cm of router] (vm2) {UbunSO2 \\ 192.168.2.8};
+\node[vm, below right=2cm and 2cm of router] (vm3) {UbunSO3 \\ 192.168.2.7};
+
+\draw[thick] (router) -- (vm1);
+\draw[thick] (router) -- (vm2);
+\draw[thick] (router) -- (vm3);
+\draw[dashed] (vm1) -- (vm2);
+\draw[dashed] (vm2) -- (vm3);
+\draw[dashed] (vm1) -- (vm3);
+
+\end{tikzpicture}
+\caption{Comunicación entre las máquinas y el router en modo Adaptador Puente.}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[
+    vm/.style={rectangle, draw=blue!60, fill=blue!20, thick, minimum width=3cm, minimum height=1cm, align=center},
+    vbox/.style={rectangle, draw=orange!60, fill=orange!20, thick, minimum width=4cm, minimum height=1cm, align=center},
+    router/.style={circle, draw=red!60, fill=red!20, thick, minimum size=1.2cm, align=center}
+]
+\node[router] (router) {Router \\ 192.168.2.1};
+\node[vbox, below=2cm of router] (nat) {VirtualBox NAT \\ 10.0.2.1};
+\node[vm, below left=2cm and 2cm of nat] (vm1) {UbunSO1 \\ 10.0.2.15};
+\node[vm, below=2cm of nat] (vm2) {UbunSO2 \\ 10.0.2.16};
+\node[vm, below right=2cm and 2cm of nat] (vm3) {UbunSO3 \\ 10.0.2.17};
+
+\draw[thick] (router) -- (nat);
+\draw[thick] (nat) -- (vm1);
+\draw[thick] (nat) -- (vm2);
+\draw[thick] (nat) -- (vm3);
+
+\end{tikzpicture}
+\caption{Esquema de red en modo NAT (referencia).}
+\end{figure}
+
+\FloatBarrier
+
+\section{Conclusiones}
+La configuración en modo puente permitió que cada VM tuviera una IP propia en la red local, facilitando la comunicación entre ellas y con el router.  
+Las pruebas de \texttt{ping} confirmaron la conectividad entre las máquinas, sin pérdida de paquetes significativa.  
+La asignación de IPs fijas mediante Netplan garantiza estabilidad para futuras pruebas y la siguiente fase con Nginx como balanceador de carga.  
+
+De acuerdo con \citeA{canonical2024}, la documentación oficial de Ubuntu recomienda este tipo de configuraciones para entornos de laboratorio. Asimismo, \citeA{oracle2024} enfatiza la importancia de comprender las diferencias entre NAT y adaptador puente en VirtualBox para escenarios de red.  
+Por su parte, \citeA{arena2002} y \citeA{arena2005} destacan la relevancia de Linux como sistema operativo robusto para servidores y entornos académicos, mientras que \citeA{wolf2010} subraya su papel en la enseñanza universitaria.  
+
+% Forzamos que todas las figuras se impriman antes de la bibliografía
+\FloatBarrier
+
+\section{Referencias}
+\bibliographystyle{apacite}
+\bibliography{referencias}
+
+\end{document}
