@@ -33,7 +33,7 @@
 
 % Datos del documento
 \title{\textbf{Práctica de Laboratorio 1: Instalación y Configuración de Máquinas Virtuales}}
-\author{Wílmer E. León D.\\ Código: 1520010896 \and Jesús Orlando Orjuela \\ Código: 100384722 \and Hugo Alejandro Mejía \\ Código: 100312289 \and Fabián Andrés Cabana \\ Código: 1620010455}
+\author{Wílmer E. León\\ Código: 1520010896 \and Jesús Orlando Orjuela \\ Código: 100384722 \and Hugo Alejandro Mejía \\ Código: 100312289 \and Fabián Andrés Cabana \\ Código: 1620010455}
 \date{Fecha de entrega: 1 de noviembre de 2025}
 
 \begin{document}
@@ -48,7 +48,8 @@
     Wílmer E. León \\ Código: 1520010896 \\[0.5cm]
     Jesús Orlando Orjuela \\ Código: 100384722 \\[0.5cm]
     Hugo Alejandro Mejía \\ Código: 100312289 \\[0.5cm]
-    Fabián Andrés Cabana \\ Código: 1620010455 \\[2cm]
+    Fabián Andrés Cabana \\ Código: 1620010455 \\[0.5cm]
+    Estudiante cinco \\ Código: XXXXXXXX \\[2cm]
 
     \textbf{Docente:}\\
     José León León \\[4cm]
@@ -70,6 +71,10 @@
 En esta primera entrega se documenta la instalación de tres máquinas virtuales utilizando \textbf{Oracle VirtualBox}, su configuración de red en modo \textbf{adaptador puente} y la verificación de conectividad entre ellas. El objetivo es sentar las bases para la posterior configuración de \textbf{Nginx} como balanceador de carga.  
 
 Como señalan autores como \citeA{stallings2005}, la virtualización es un pilar fundamental en la administración moderna de sistemas. Asimismo, \citeA{silberschatz2008} destacan que la concurrencia y la gestión de procesos son elementos centrales en el diseño de sistemas operativos.
+
+En el Marco teórico, se define el respaldo conceptual y antecedentes que respaldan el montaje de las actividades para esta entrega, junto con las bibliografías que lo apoyan.
+
+En el Contenido, se detallan paso a paso la preparación de los recursos, creación de máquinas virtuales, configuración de red y todas las evidencias con capturas de pantalla. Finalmente, se plantea un alternativa de creación de máquinas virtuales por Docker, solo como un plus para facilitar la articulación de metodologías en un grupo de trabajo para esta y posteriores entregas
 
 \section{Marco teórico}
 \begin{itemize}
@@ -95,13 +100,13 @@ Se utilizaron imágenes ISO de \textbf{Ubuntu Server}, en particular la versión
 \begin{table}[H]
 \centering
 \caption{Resumen de configuración de las máquinas virtuales.}
-\begin{tabularx}{\textwidth}{c c X c c}
+\begin{tabularx}{\textwidth}{l l X c l}
 \toprule
-\textbf{Máquina} & \textbf{Nombre} & \textbf{S. O.} & \textbf{RAM (MB)} & \textbf{Dirección IP} \\
+\textbf{Máquina} & \textbf{Nombre} & \textbf{Sistema Operativo} & \textbf{RAM (MB)} & \textbf{Dirección IP} \\
 \midrule
-UbunSO1 & Ubuntu Server 22.04 LTS & Ubuntu Server 22.04 LTS & 2048 & 192.168.2.9 \\
-UbunSO2 & Ubuntu Server 22.04.5 LTS & Ubuntu Server 22.04.5 LTS & 2048 & 192.168.2.8 \\
-UbunSO3 & Ubuntu Server 22.04 LTS & Ubuntu Server 22.04 LTS & 2048 & 192.168.2.7 \\
+UbunSO1 & Ubuntu Server 22.04 & Ubuntu Server 22.04 LTS & 2048 & 192.168.2.9 \\
+UbunSO2 & Ubuntu Server 22.04.5 & Ubuntu Server 22.04.5 LTS & 2048 & 192.168.2.8 \\
+UbunSO3 & Ubuntu Server 22.04 & Ubuntu Server 22.04 LTS & 2048 & 192.168.2.7 \\
 \bottomrule
 \end{tabularx}
 \end{table}
