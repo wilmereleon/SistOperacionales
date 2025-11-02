@@ -88,7 +88,7 @@ El direccionamiento IP es esencial para garantizar la comunicación entre dispos
 
 \subsection{NGiNX como balanceador de carga}
 
-Nginx (pronunciado "engine-x") es un servidor web de alto rendimiento y proxy inverso que se ha convertido en una herramienta estándar para la distribución de carga en arquitecturas de servidores modernos. Su arquitectura basada en eventos le permite manejar miles de conexiones simultáneas con un consumo mínimo de recursos, lo que lo hace ideal para entornos virtualizados.
+Nginx (pronunciado /'en-gin-ex) es un servidor web de alto rendimiento y proxy inverso que se ha convertido en una herramienta estándar para la distribución de carga en arquitecturas de servidores modernos. Su arquitectura basada en eventos le permite manejar miles de conexiones simultáneas con un consumo mínimo de recursos, lo que lo hace ideal para entornos virtualizados.
 
 En el contexto de este laboratorio, la configuración de red en modo adaptador puente entre las tres máquinas virtuales sienta las bases para implementar Nginx como balanceador de carga en entregas futuras. El balanceo de carga permite distribuir el tráfico de red entre múltiples servidores, mejorando la disponibilidad, escalabilidad y rendimiento de las aplicaciones. Nginx puede configurarse para distribuir peticiones HTTP/HTTPS entre los servidores backend utilizando diferentes algoritmos (round-robin, least connections, ip-hash), permitiendo que si uno de los servidores falla, el tráfico se redirija automáticamente a los servidores restantes.
 
