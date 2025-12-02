@@ -1,19 +1,63 @@
 @startuml
+scale 0.75
+
+title Arquitectura de Balanceo de Carga\nPruebas de Rendimiento con Apache Benchmark y Siege
+
 nwdiag {
-  network red_lan {
-      address = "192.168.2.0/24"
-      Cliente [address = "192.168.2.100", description = "Cliente Web"];
-      Nginx [address = "192.168.2.9", description = "Balanceador Nginx"];
-      Backend1 [address = "192.168.2.8", description = "Backend 1 (UbunSO2)"];
-      Backend2 [address = "192.168.2.7", description = "Backend 2 (UbunSO3)"];
+  internet [shape = cloud, description = "Cliente de\nPruebas"];
+  internet -- UbunSO1;
+
+  network red_interna {
+    address = "192.168.2.0/24"
+    color = "lightblue"
+
+    UbunSO1 [address = "192.168.2.9", description = "Nginx Load Balancer\nUbuntu 22.04 LTS\n2GB RAM | 1-2 cores\n\nAlgoritmo: Round Robin\nworker_connections: 768\nkeepalive_timeout: 65s", shape = node];
+    UbunSO2 [address = "192.168.2.8", description = "Backend Server 1\nUbuntu 22.04.5 LTS\n2GB RAM\n\n50% tráfico\nCPU: 45-78%", shape = storage];
+    UbunSO3 [address = "192.168.2.7", description = "Backend Server 2\nUbuntu 22.04 LTS\n2GB RAM\n\n50% tráfico\nCPU: 78-92%", shape = storage];
   }
 
-  group {
-    color = "#E5F3FF";
-    description = "Balanceo de carga con Nginx";
-    Nginx;
-    Backend1;
-    Backend2;
+  group balanceador {
+    color = "#FFE5E5";
+    description = "Capa de Balanceo";
+    UbunSO1;
+  }
+
+  group backends {
+    color = "#E5FFE5";
+    description = "Servidores Backend";
+    UbunSO2;
+    UbunSO3;
   }
 }
+
+legend right
+  **Escenarios de Prueba:**
+  • Ligero: 100 req, 10 concurrentes
+  • Intermedio: 1000 req, 50 concurrentes  
+  • Pesado: 10000 req, 200 concurrentes
+  
+  **Resultados:**
+  • Throughput: 421-1243 req/s
+  • Latencia: 8-470ms (promedio)
+  • Error rate: 0-0.12%
+  • CPU balanceador: 12-78%
+  
+  **Herramientas:**
+  • Apache Benchmark (ab)
+  • Siege
+  • Monitoreo: top, vmstat, sar
+  
+  **Cuellos de Botella:**
+  1. Saturación CPU (78-92%)
+  2. worker_connections: 768
+  3. File descriptors agotados
+  4. Presión memoria (swap)
+  
+  **Soluciones:**
+  • Escalamiento: 4 cores, 4GB RAM
+  • Agregar 3er backend
+  • worker_connections: 2048
+  • ulimit -n 65535
+end legend
+
 @enduml
