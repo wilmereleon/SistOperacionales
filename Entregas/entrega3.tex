@@ -61,14 +61,14 @@ Esta tercera entrega documenta las pruebas de rendimiento realizadas sobre el ba
 \section{Parte 3: Pruebas Adicionales y Evaluación del Rendimiento del Balanceo de Carga}
 \subsection{Paso 1: Preparación de Pruebas}
 \begin{itemize}
-	\item Herramientas: Apache Benchmark (\texttt{ab}), \texttt{siege} y utilidades del sistema (\texttt{top}, \texttt{vmstat}, \texttt{sar}).
+	\item Herramientas: Apache Benchmark \cite{ab2018}, \texttt{siege} \cite{siege2019} y utilidades del sistema (\texttt{top}, \texttt{vmstat}, \texttt{sar}).
 	\item Escenarios propuestos:
 		\begin{enumerate}
 			\item Tráfico ligero: 100 peticiones totales, concurrencia 10.
 			\item Tráfico intermedio: 1.000 peticiones, concurrencia 50.
 			\item Tráfico pesado: 10.000 peticiones, concurrencia 200.
 		\end{enumerate}
-	\item Entorno: Balanceador en \texttt{192.168.2.9} (UbunSO1); backends en \texttt{192.168.2.8} y \texttt{192.168.2.7}.
+	\item Entorno: Balanceador Nginx \cite{nginx2024} en \texttt{192.168.2.9} (UbunSO1); backends en \texttt{192.168.2.8} y \texttt{192.168.2.7}.
 	\item Métricas a recolectar: throughput (requests/s), tiempo medio de respuesta, latencia p95, tasa de errores, uso de CPU y memoria en cada VM.
 \end{itemize}
 
@@ -231,11 +231,11 @@ El algoritmo de balanceo round-robin distribuyó equitativamente la carga, confi
 \FloatBarrier
 \section{Profundización: Planificación de Procesos en Sistemas Operativos}
 \subsection{Paso 5: Investigación de algoritmos}
-Se analizan tres algoritmos: FIFO (First-In-First-Out), SJF (Shortest Job First) y Round Robin (RR).
+Se analizan tres algoritmos fundamentales de planificación de procesos \cite{silberschatz2008,stallings2005}: FIFO (First-In-First-Out), SJF (Shortest Job First) y Round Robin (RR).
 
 \subsection{Paso 6: Explicación de los algoritmos seleccionados}
 \subsubsection{FIFO (First-In-First-Out)}
-\textbf{Funcionamiento:} Los procesos se atienden en orden estricto de llegada (cola FIFO). El primer proceso que llega es el primero en ejecutarse hasta completarse.
+\textbf{Funcionamiento:} Los procesos se atienden en orden estricto de llegada (cola FIFO) \cite{stallings2005}. El primer proceso que llega es el primero en ejecutarse hasta completarse.
 
 \textbf{Criterios de selección:} Orden de llegada al sistema (timestamp de entrada a la cola).
 
@@ -254,7 +254,7 @@ Se analizan tres algoritmos: FIFO (First-In-First-Out), SJF (Shortest Job First)
 
 \textbf{Orden de ejecución:} Prioridad dinámica basada en estimaciones de tiempo. Los trabajos más cortos se ejecutan primero, minimizando el tiempo de espera promedio.
 
-\textbf{Ventajas:} Tiempo de espera promedio óptimo (demostrable matemáticamente). Mejora el throughput en entornos batch.
+\textbf{Ventajas:} Tiempo de espera promedio óptimo (demostrable matemáticamente) \cite{silberschatz2008}. Mejora el throughput en entornos batch.
 
 \textbf{Desventajas:} Requiere estimaciones precisas (difícil en la práctica). Puede causar inanición (starvation) de procesos largos si constantemente llegan procesos cortos. No apropiado para sistemas de tiempo real.
 
@@ -271,7 +271,7 @@ Se analizan tres algoritmos: FIFO (First-In-First-Out), SJF (Shortest Job First)
 
 \textbf{Desventajas:} Overhead por cambios de contexto frecuentes. Si el quantum es muy pequeño, el overhead domina. Si es muy grande, se comporta como FIFO. Tiempo de espera promedio puede ser subóptimo.
 
-\textbf{Casos de uso:} Sistemas operativos de tiempo compartido (time-sharing), entornos multiusuario interactivos, servidores web con múltiples conexiones concurrentes, sistemas donde la equidad es crítica.
+\textbf{Casos de uso:} Sistemas operativos de tiempo compartido (time-sharing) \cite{wolf2010}, entornos multiusuario interactivos, servidores web con múltiples conexiones concurrentes, sistemas donde la equidad es crítica.
 
 \subsection{Paso 7: Comparación de algoritmos}
 
@@ -392,7 +392,6 @@ ssh usuario@192.168.2.8 'top -b -n1' > backend1-top.log
 \section{Referencias}
 Se usan las mismas referencias del marco teórico de la entrega anterior además de manuales usados para las pruebas.
 \bibliographystyle{apacite}
-\nocite{*}
 \bibliography{referencias,referencias3}
 
 \end{document}
